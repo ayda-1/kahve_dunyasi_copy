@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class EntryScreen extends StatelessWidget {
-  const EntryScreen({super.key});
+class TakeAwayPage extends StatelessWidget {
+  const TakeAwayPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class EntryScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed("/entryPage");
+                Navigator.of(context).pushNamed("entryPage");
               },
               child: Text("2. sayfaya git"),
             ),
