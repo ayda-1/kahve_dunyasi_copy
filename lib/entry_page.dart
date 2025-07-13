@@ -47,7 +47,7 @@ class _EntryPageState extends State<EntryPage> {
           CircleAvatar(
             child: Icon(
               Icons.qr_code_rounded,
-              size: 40,
+              size: 30,
               color: Colors.pink.shade900,
             ),
           ),
@@ -64,6 +64,7 @@ class _EntryPageState extends State<EntryPage> {
                   children: [Icon(Icons.coffee), Icon(Icons.coffee_maker)],
                 ),
               ),
+              SizedBox(height: 13),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
@@ -71,50 +72,43 @@ class _EntryPageState extends State<EntryPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: 100,
+                      height: 110,
                       width: 180,
                       decoration: BoxDecoration(
-                        color: Colors.amberAccent.shade100,
+                        color: Colors.yellow.shade300,
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Column(children: [Text("data")]),
-                              Column(children: [Icon(Icons.coffee_sharp)]),
-                            ],
-                          ),
-                          Row(children: [Text("data")]),
-                        ],
-                      ),
+                      child: TakeAwayButton(),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: 100,
+                      height: 110,
                       width: 180,
                       decoration: BoxDecoration(
                         color: Colors.teal.shade600,
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Column(children: [Text("data")]),
-                              Column(children: [Icon(Icons.coffee_sharp)]),
-                            ],
-                          ),
-                          Row(children: [Text("data")]),
-                        ],
-                      ),
+                      child: OnlineShopButton(),
                     ),
                   ),
                 ],
               ),
-              Row(children: [Text("Haberler ve Fırsatlar")]),
+              SizedBox(height: 13),
+              Row(
+                children: [
+                  SizedBox(width: 13),
+                  Text(
+                    "Haberler ve Fırsatlar",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
               PageViewFirstPage(
                 controller: _pageController,
                 onPageChanged: (index) {
@@ -128,7 +122,20 @@ class _EntryPageState extends State<EntryPage> {
 
               const SizedBox(height: 16),
 
-              Text("Kahve Dünyası Mağzalarını Keşfet"),
+              Row(
+                children: [
+                  SizedBox(width: 13),
+                  Text(
+                    "Kahve Dünyası Mağazalarını Keşfet",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+
               Container(height: 200, width: 500, color: Colors.blue),
               ElevatedButton(
                 onPressed: () {
@@ -138,6 +145,145 @@ class _EntryPageState extends State<EntryPage> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class OnlineShopButton extends StatelessWidget {
+  const OnlineShopButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+Navigator.of(context).pushNamed("/onlineShopPage");
+        
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      "Online \nMağaza",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 50,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 13),
+                Text(
+                  "Alışverişe Başla",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(width: 2),
+                Icon(
+                  Icons.arrow_circle_right_outlined,
+                  color: Colors.white,
+                  size: 14,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TakeAwayButton extends StatelessWidget {
+  const TakeAwayButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+Navigator.of(context).pushNamed("/takeAwayPage");
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      "Hazır Al\n",
+                      style: TextStyle(
+                        color: Colors.pink.shade900,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(
+                      Icons.coffee_sharp,
+                      size: 50,
+                      color: Colors.pink.shade900,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 13),
+                Text(
+                  "Sipariş Ver",
+                  style: TextStyle(
+                    color: Colors.pink.shade900,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(width: 2),
+                Icon(
+                  Icons.arrow_circle_right_outlined,
+                  color: Colors.pink.shade900,
+                  size: 14,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -157,22 +303,47 @@ class PageViewFirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 250,
       child: PageView(
         controller: controller,
         onPageChanged: onPageChanged, // 🔥 EKLENDİ!
         children: [
-          Container(
-            color: Colors.red,
-            child: Center(child: Text("Sayfa 1")),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: AssetImage("images/dondurma.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ),
-          Container(
-            color: Colors.green,
-            child: Center(child: Text("Sayfa 2")),
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: AssetImage("images/dondurma.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ),
-          Container(
-            color: Colors.blue,
-            child: Center(child: Text("Sayfa 3")),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: AssetImage("images/dondurma.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -202,7 +373,7 @@ class PageDots extends StatelessWidget {
           height: currentPage == index ? 12 : 8,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: currentPage == index ? Colors.pink : Colors.grey,
+            color: currentPage == index ? Colors.grey.shade800 : Colors.grey,
           ),
         );
       }),
