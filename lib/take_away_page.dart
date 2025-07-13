@@ -21,10 +21,14 @@ class _TakeAwayPageState extends State<TakeAwayPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
+
       child: SingleChildScrollView(
+        
         child: Column(
+          
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 10,),
             SizedBox(
               height: 100,
               child: ListView(
@@ -66,7 +70,7 @@ class _TakeAwayPageState extends State<TakeAwayPage> {
             ),
 
             PageDots(currentPage: _currentPage, pageCount: 3),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             Row(
               children: [
                 SizedBox(width: 13),
@@ -81,25 +85,56 @@ class _TakeAwayPageState extends State<TakeAwayPage> {
               ],
             ),
             SingleChildScrollView(
-  scrollDirection: Axis.horizontal,
-  padding: const EdgeInsets.all(16),
-  child: SizedBox(
-    height: 160,
-    child: Row(
-      children:  [
-        ProductCard(imagePath: 'images/gofrik.png', title: 'Gofrik Sütlü', price: '37,00 TL'),
-        SizedBox(width: 12),
-        ProductCard(imagePath: 'images/gofrik.png', title: 'Kruvasan', price: '85,00 TL'),
-        SizedBox(width: 12),
-        ProductCard(imagePath: 'images/gofrik.png', title: 'Kruvasan', price: '85,00 TL'),
-        SizedBox(width: 12),
-        ProductCard(imagePath: 'images/gofrik.png', title: 'Kruvasan', price: '85,00 TL'),
-      ],
-    ),
-  ),
-)
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.all(10),
+              child: SizedBox(
+                height: 250,
 
-
+                child: Row(
+                  children: [
+                    ProductCard(
+                      imagePath: 'images/gofrik.png',
+                      title: 'Gofrik Sütlü',
+                      price: '37,00 TL',
+                    ),
+                    SizedBox(width: 12),
+                    ProductCard(
+                      imagePath: 'images/kruvasan.png',
+                      title: 'Kruvasan',
+                      price: '85,00 TL',
+                    ),
+                    SizedBox(width: 12),
+                    ProductCard(
+                      imagePath: 'images/gofrik.png',
+                      title: 'Kruvasan',
+                      price: '85,00 TL',
+                    ),
+                    SizedBox(width: 12),
+                    ProductCard(
+                      imagePath: 'images/gofrik.png',
+                      title: 'Kruvasan',
+                      price: '85,00 TL',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+         
+          Row(
+                children: [
+                  SizedBox(width: 13),
+                  Text(
+                    "Kahve Dünyası Mağazalarını Keşfet",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10,),
+              Container(child: Image.asset("images/map.png",fit: BoxFit.fill,),),
           ],
         ),
       ),
@@ -131,7 +166,7 @@ class PageViewFirstPage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                  image: AssetImage("images/dondurma.png"),
+                  image: AssetImage("images/offer8.png"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -144,7 +179,7 @@ class PageViewFirstPage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                  image: AssetImage("images/dondurma.png"),
+                  image: AssetImage("images/offer7.png"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -156,7 +191,7 @@ class PageViewFirstPage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                  image: AssetImage("images/dondurma.png"),
+                  image: AssetImage("images/offer6.png"),
                   fit: BoxFit.cover,
                 ),
               ),

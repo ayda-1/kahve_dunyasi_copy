@@ -18,15 +18,15 @@ class ProductCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 4,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             Expanded(
-              child: Image.asset(imagePath, fit: BoxFit.contain),
+              child: Image.asset(imagePath, fit: BoxFit.cover),
             ),
             const SizedBox(height: 8),
             Text(title, style: TextStyle(fontSize: 16)),
-            const Spacer(),
+           SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -35,6 +35,7 @@ class ProductCard extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.purple)),
+                        
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.add_circle_outline,

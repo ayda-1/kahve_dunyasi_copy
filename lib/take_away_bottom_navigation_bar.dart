@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kahve_dunyasi/order.dart';
+import 'package:kahve_dunyasi/previous_orders.dart';
+import 'package:kahve_dunyasi/shopping_basket.dart';
 import 'take_away_page.dart'; // sayfalarını buraya import et
 
 class TakeAwayBottomNavigationBar extends StatefulWidget {
@@ -13,9 +16,9 @@ class _TakeAwayBottomNavigationBar extends State<TakeAwayBottomNavigationBar> {
 
   final List<Widget> _pages = const [
     TakeAwayPage(),
-    Center(child: Text("Sipariş Ver")),
-    Center(child: Text("Sepetim")),
-    Center(child: Text("Siparişlerim")),
+    Order(),
+    ShoppingBasket(),
+    PreviousOrders(),
   ];
 
   void _onItemTapped(int index) {
@@ -75,11 +78,12 @@ class _TakeAwayBottomNavigationBar extends State<TakeAwayBottomNavigationBar> {
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+       
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.coffee), label: "Hazır Al"),
+              icon: Icon(Icons.coffee), label: "Hazır Al", ),
           BottomNavigationBarItem(
               icon: Icon(Icons.coffee_maker), label: "Sipariş Ver"),
           BottomNavigationBarItem(

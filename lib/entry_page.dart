@@ -118,7 +118,7 @@ class _EntryPageState extends State<EntryPage> {
                 },
               ),
 
-              PageDots(currentPage: _currentPage, pageCount: 3),
+              PageDots(currentPage: _currentPage, pageCount: 6),
 
               const SizedBox(height: 16),
 
@@ -135,8 +135,8 @@ class _EntryPageState extends State<EntryPage> {
                   ),
                 ],
               ),
-
-              Container(height: 200, width: 500, color: Colors.blue),
+              SizedBox(height: 10,),
+              Container(child: Image.asset("images/map.png",fit: BoxFit.fill,),),
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed("/entryScreen");
@@ -314,7 +314,7 @@ class PageViewFirstPage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                  image: AssetImage("images/dondurma.png"),
+                  image: AssetImage("images/offer1.png"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -327,7 +327,7 @@ class PageViewFirstPage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                  image: AssetImage("images/dondurma.png"),
+                  image: AssetImage("images/offer2.png"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -339,7 +339,41 @@ class PageViewFirstPage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                  image: AssetImage("images/dondurma.png"),
+                  image: AssetImage("images/offer3.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: AssetImage("images/offer4.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: AssetImage("images/offer5.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: AssetImage("images/offer6.png"),
                   fit: BoxFit.cover,
                 ),
               ),
