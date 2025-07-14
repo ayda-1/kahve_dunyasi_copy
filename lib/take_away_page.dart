@@ -21,14 +21,11 @@ class _TakeAwayPageState extends State<TakeAwayPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-
       child: SingleChildScrollView(
-        
         child: Column(
-          
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 10,),
+            SizedBox(height: 10),
             SizedBox(
               height: 100,
               child: ListView(
@@ -119,22 +116,22 @@ class _TakeAwayPageState extends State<TakeAwayPage> {
                 ),
               ),
             ),
-         
-          Row(
-                children: [
-                  SizedBox(width: 13),
-                  Text(
-                    "Kahve Dünyası Mağazalarını Keşfet",
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
+
+            Row(
+              children: [
+                SizedBox(width: 13),
+                Text(
+                  "Kahve Dünyası Mağazalarını Keşfet",
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
-                ],
-              ),
-              SizedBox(height: 10,),
-              Container(child: Image.asset("images/map.png",fit: BoxFit.fill,),),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Container(child: Image.asset("images/map.png", fit: BoxFit.fill)),
           ],
         ),
       ),

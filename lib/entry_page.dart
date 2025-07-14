@@ -135,8 +135,8 @@ class _EntryPageState extends State<EntryPage> {
                   ),
                 ],
               ),
-              SizedBox(height: 10,),
-              Container(child: Image.asset("images/map.png",fit: BoxFit.fill,),),
+              SizedBox(height: 10),
+              Container(child: Image.asset("images/map.png", fit: BoxFit.fill)),
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed("/entryScreen");
@@ -152,16 +152,13 @@ class _EntryPageState extends State<EntryPage> {
 }
 
 class OnlineShopButton extends StatelessWidget {
-  const OnlineShopButton({
-    super.key,
-  });
+  const OnlineShopButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-Navigator.of(context).pushNamed("/onlineShopPage");
-        
+      onTap: () {
+        Navigator.of(context).pushNamed("/onlineShopPage");
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -222,15 +219,13 @@ Navigator.of(context).pushNamed("/onlineShopPage");
 }
 
 class TakeAwayButton extends StatelessWidget {
-  const TakeAwayButton({
-    super.key,
-  });
+  const TakeAwayButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-Navigator.of(context).pushNamed("/takeAwayPage");
+      onTap: () {
+        Navigator.of(context).pushNamed("/takeAwayPage");
       },
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -356,7 +351,8 @@ class PageViewFirstPage extends StatelessWidget {
                 ),
               ),
             ),
-          ),Padding(
+          ),
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
@@ -367,7 +363,8 @@ class PageViewFirstPage extends StatelessWidget {
                 ),
               ),
             ),
-          ),Padding(
+          ),
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
