@@ -3,6 +3,7 @@ import 'package:kahve_dunyasi/product.dart';
 import 'package:kahve_dunyasi/product_detail_page.dart';
 import 'package:kahve_dunyasi/shopping_basket.dart';
 import 'package:kahve_dunyasi/shopping_basket_manager.dart';
+import 'package:kahve_dunyasi/widgets/chosen_shop.dart';
 
 class OrderCategories extends StatelessWidget {
   final String categoryTitle;
@@ -23,101 +24,108 @@ class OrderCategories extends StatelessWidget {
         foregroundColor: Colors.pink.shade900,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: GridView.builder(
-          itemCount: products.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // 2 sütun
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 0.7,
-          ),
-          itemBuilder: (context, index) {
-            final product = products[index];
-
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey.shade300),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    flex: 6,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(12),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.asset(
-                            product.imageUrl,
-                            fit: BoxFit.cover,
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            ChosenShop(),// bu hala kayıyo sonra düzeltilecek 
+            Expanded(
+              child: GridView.builder(
+                itemCount: products.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // 2 sütun
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 0.7,
+                ),
+                itemBuilder: (context, index) {
+                  final product = products[index];
+                          
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          flex: 6,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(12),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.asset(
+                                  product.imageUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Expanded(
-                    flex: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            product.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const Spacer(),
-                          Row(
-                            children: [
-                              Text("${product.basePrice} TL"),
-                              const Spacer(),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.add_circle_outline,
-                                  size: 20,
-                                  color: Colors.pink,
+                        const SizedBox(height: 2),
+                        Expanded(
+                          flex: 4,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  product.name,
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                onPressed: () async {
-                                  final result = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductDetailPage(product: product),
+                                const Spacer(),
+                                Row(
+                                  children: [
+                                    Text("${product.basePrice} TL"),
+                                    const Spacer(),
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.add_circle_outline,
+                                        size: 20,
+                                        color: Colors.pink,
+                                      ),
+                                      onPressed: () async {
+                                        final result = await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductDetailPage(product: product),
+                                          ),
+                                        );
+                          
+                                        if (result == true) {
+                                          // Eğer sadece true dönmüşse, bildirimi göster (eski kullanım)
+                                          _showTopNotification(context, product);
+                                        } else if (result is Map) {
+                                          final Product prod = result['product'];
+                                          final int qty = result['quantity'];
+                                          // Sepete qty kadar ekle
+                                          for (int i = 0; i < qty; i++) {
+                                            ShoppingBasketManager.add(prod);
+                                          }
+                                          _showTopNotification(context, prod);
+                                        }
+                                      },
                                     ),
-                                  );
-
-                                  if (result == true) {
-                                    // Eğer sadece true dönmüşse, bildirimi göster (eski kullanım)
-                                    _showTopNotification(context, product);
-                                  } else if (result is Map) {
-                                    final Product prod = result['product'];
-                                    final int qty = result['quantity'];
-                                    // Sepete qty kadar ekle
-                                    for (int i = 0; i < qty; i++) {
-                                      ShoppingBasketManager.add(prod);
-                                    }
-                                    _showTopNotification(context, prod);
-                                  }
-                                },
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );

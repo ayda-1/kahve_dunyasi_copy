@@ -85,6 +85,9 @@ class _OrderState extends State<Order> {
                               "image": "images/cafe_latte.jpeg",
                               "name": "Cafe Latte",
                               "price": "100.00",
+                              "description": "Sıcak süt ve espresso ile hazırlanan yumuşak içimli kahve.",
+  "allergens": ["Süt", "Laktoz"],
+                              
                             },
                             {
                               "image":
