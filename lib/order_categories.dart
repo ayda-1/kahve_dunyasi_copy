@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kahve_dunyasi/product.dart';
+import 'package:kahve_dunyasi/product_detail_page.dart';
+import 'package:kahve_dunyasi/shopping_basket.dart';
+import 'package:kahve_dunyasi/shopping_basket_manager.dart';
 
 class OrderCategories extends StatelessWidget {
   final String categoryTitle;
-  final List<Map<String, dynamic>> products;
+  final List<Product> products;
 
   const OrderCategories({
     super.key,
@@ -30,6 +34,7 @@ class OrderCategories extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             final product = products[index];
+
             return Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -49,35 +54,59 @@ class OrderCategories extends StatelessWidget {
                         padding: const EdgeInsets.all(5.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
-
                           child: Image.asset(
-                            product['image'],
+                            product.imageUrl,
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                     ),
                   ),
-
+                  const SizedBox(height: 2),
                   Expanded(
                     flex: 4,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            product['name'],
+                            product.name,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("${product['price']} TL"),
-                              const Icon(
-                                Icons.add_circle_outline,
-                                color: Colors.purple,
+                              Text("${product.basePrice} TL"),
+                              const Spacer(),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.add_circle_outline,
+                                  size: 20,
+                                  color: Colors.pink,
+                                ),
+                                onPressed: () async {
+                                  final result = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductDetailPage(product: product),
+                                    ),
+                                  );
+
+                                  if (result == true) {
+                                    // Eğer sadece true dönmüşse, bildirimi göster (eski kullanım)
+                                    _showTopNotification(context, product);
+                                  } else if (result is Map) {
+                                    final Product prod = result['product'];
+                                    final int qty = result['quantity'];
+                                    // Sepete qty kadar ekle
+                                    for (int i = 0; i < qty; i++) {
+                                      ShoppingBasketManager.add(prod);
+                                    }
+                                    _showTopNotification(context, prod);
+                                  }
+                                },
                               ),
                             ],
                           ),
@@ -93,4 +122,62 @@ class OrderCategories extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showTopNotification(BuildContext context, Product product) {
+  final overlay = Overlay.of(context);
+  final overlayEntry = OverlayEntry(
+    builder: (context) => Positioned(
+      top: MediaQuery.of(context).padding.top + 10,
+      left: 16,
+      right: 16,
+      child: Material(
+        elevation: 6,
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.green.shade100,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            children: [
+              Image.asset(product.imageUrl, width: 40, height: 40),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  "${product.name} sepete eklendi!",
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ShoppingBasket()),
+                  );
+
+                  if (result == true) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("${product.name} sepete eklendi."),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  }
+                },
+                child: const Text("Sepete Git"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+
+  overlay.insert(overlayEntry);
+
+  Future.delayed(const Duration(seconds: 3), () {
+    overlayEntry.remove();
+  });
 }

@@ -5,11 +5,12 @@ class ProductCard extends StatelessWidget {
   final String title;
   final String price;
 
-  ProductCard({
+  const ProductCard({
+    Key? key,
     required this.imagePath,
     required this.title,
     required this.price,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +24,8 @@ class ProductCard extends StatelessWidget {
           children: [
             Expanded(child: Image.asset(imagePath, fit: BoxFit.cover)),
             const SizedBox(height: 8),
-            Text(title, style: TextStyle(fontSize: 16)),
-            SizedBox(height: 20),
+            Text(title, style: const TextStyle(fontSize: 16)),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -36,9 +37,10 @@ class ProductCard extends StatelessWidget {
                     color: Colors.purple,
                   ),
                 ),
-
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Buton aksiyonu buraya
+                  },
                   icon: Icon(
                     Icons.add_circle_outline,
                     color: Colors.purple.shade700,

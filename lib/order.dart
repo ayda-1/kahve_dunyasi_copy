@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kahve_dunyasi/order_categories.dart';
+import 'package:kahve_dunyasi/product.dart';
+import 'package:kahve_dunyasi/widgets/chosen_shop.dart';
 
 class Order extends StatefulWidget {
   const Order({super.key});
@@ -42,56 +44,11 @@ class _OrderState extends State<Order> {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40),
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                height: 100,
-                width: 380,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset("images/kahve_dunyasi_logo.png"),
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            "Seçtiğiniz Mağaza:",
-                            style: TextStyle(color: Colors.grey.shade600),
-                          ),
-                          Text(
-                            "Ataköy A Plus",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "Seçimi Buradan Değiştirebilirsin",
-                                style: TextStyle(color: Colors.pink.shade900),
-                              ),
-                              SizedBox(width: 5),
-                              Icon(
-                                Icons.arrow_circle_right_outlined,
-                                color: Colors.pink.shade900,
-                                size: 20,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              ChosenShop(),
               SizedBox(height: 13),
               Container(
                 color: Colors.grey.shade100,
@@ -120,10 +77,10 @@ class _OrderState extends State<Order> {
                         String selectedCategory = item["title"];
 
                         // Bu kısmı kendin düzenleyerek farklı ürün listeleri verebilirsin
-                        List<Map<String, dynamic>> categoryProducts = [];
+                        List<Map<String, dynamic>> categoryProductsData = [];
 
                         if (selectedCategory == "Sıcak İçecekler") {
-                          categoryProducts = [
+                          categoryProductsData = [
                             {
                               "image": "images/cafe_latte.jpeg",
                               "name": "Cafe Latte",
@@ -167,7 +124,7 @@ class _OrderState extends State<Order> {
                             },
                           ];
                         } else if (selectedCategory == "Çikolata") {
-                          categoryProducts = [
+                          categoryProductsData = [
                             {
                               "image": "images/cikolata1.png",
                               "name": "Bitter Çikolata",
@@ -180,6 +137,8 @@ class _OrderState extends State<Order> {
                             },
                           ];
                         }
+                        List<Product> categoryProducts =
+    categoryProductsData.map((item) => Product.fromMap(item)).toList();
 
                         Navigator.push(
                           context,
