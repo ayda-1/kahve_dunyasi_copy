@@ -137,12 +137,6 @@ class _EntryPageState extends State<EntryPage> {
               ),
               SizedBox(height: 10),
               Container(child: Image.asset("images/map.png", fit: BoxFit.fill)),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed("/entryScreen");
-                },
-                child: Text("Ana sayfaya git"),
-              ),
             ],
           ),
         ),

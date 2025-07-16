@@ -9,11 +9,11 @@ class RouteGenerator {
   static Route<dynamic>? routeGenerator(RouteSettings settings) {
     if (settings.name == "/") {
       return MaterialPageRoute(builder: (context) => EntryPage());
-    }  else if (settings.name == "/entryPage") {
-      return MaterialPageRoute(builder: (context) => EntryPage());
-    }else if (settings.name == "/takeAwayPage") {
-      return MaterialPageRoute(builder: (context) => TakeAwayBottomNavigationBar());
-    }else if (settings.name == "/onlineShopPage") {
+    } else if (settings.name == "/takeAwayPage") {
+      return MaterialPageRoute(
+        builder: (context) => TakeAwayBottomNavigationBar(),
+      );
+    } else if (settings.name == "/onlineShopPage") {
       return MaterialPageRoute(builder: (context) => OnlineShopPage());
     }
   }

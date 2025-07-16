@@ -1,3 +1,5 @@
+import 'package:kahve_dunyasi/product_option.dart';
+
 class Product {
   final String name;
   final String imageUrl;
@@ -22,7 +24,8 @@ class Product {
       basePrice: double.tryParse(map['price'].toString()) ?? 0.0,
       description: map['description'],
       allergens: (map['allergens'] as List?)?.map((e) => e.toString()).toList(),
-      options: (map['options'] as List<dynamic>?)
+      options:
+          (map['options'] as List<dynamic>?)
               ?.map((opt) => ProductOption.fromMap(opt))
               .toList() ??
           [],
@@ -51,44 +54,11 @@ class Product {
       options.hashCode;
 }
 
-class ProductOption {
-  final String name;
-  final List<ProductChoice> choices;
-
-  ProductOption({
-    required this.name,
-    required this.choices,
-  });
-
-  factory ProductOption.fromMap(Map<String, dynamic> map) {
-    return ProductOption(
-      name: map['name'] ?? '',
-      choices: (map['choices'] as List<dynamic>)
-          .map((choice) => ProductChoice.fromMap(choice))
-          .toList(),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ProductOption &&
-          runtimeType == other.runtimeType &&
-          name == other.name &&
-          choices == other.choices;
-
-  @override
-  int get hashCode => name.hashCode ^ choices.hashCode;
-}
-
 class ProductChoice {
   final String name;
   final double extraPrice;
 
-  ProductChoice({
-    required this.name,
-    required this.extraPrice,
-  });
+  ProductChoice({required this.name, required this.extraPrice});
 
   factory ProductChoice.fromMap(Map<String, dynamic> map) {
     return ProductChoice(

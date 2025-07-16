@@ -42,6 +42,11 @@ class _OrderState extends State<Order> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Kategoriler"),
+        backgroundColor: Colors.yellow.shade200,
+        foregroundColor: Colors.pink.shade900,
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
@@ -85,9 +90,28 @@ class _OrderState extends State<Order> {
                               "image": "images/cafe_latte.jpeg",
                               "name": "Cafe Latte",
                               "price": "100.00",
-                              "description": "Sıcak süt ve espresso ile hazırlanan yumuşak içimli kahve.",
-  "allergens": ["Süt", "Laktoz"],
-                              
+                              "description":
+                                  "Sıcak süt ve espresso ile hazırlanan yumuşak içimli kahve.",
+                              "allergens": ["Süt", "Laktoz"],
+                              "options": [
+                                {
+                                  "name": "Boy Seçimi",
+                                  "isRequired": true,
+                                  "choices": [
+                                    {"name": "Küçük", "extraPrice": 0},
+                                    {"name": "Orta", "extraPrice": 10},
+                                    {"name": "Büyük", "extraPrice": 20},
+                                  ],
+                                },
+                                {
+                                  "name": "Aroma Seçimi",
+                                  "isRequired": false,
+                                  "choices": [
+                                    {"name": "Şurup Karamel", "extraPrice": 20},
+                                    {"name": "Şurup Fındık", "extraPrice": 20},
+                                  ],
+                                },
+                              ],
                             },
                             {
                               "image":
@@ -140,8 +164,9 @@ class _OrderState extends State<Order> {
                             },
                           ];
                         }
-                        List<Product> categoryProducts =
-    categoryProductsData.map((item) => Product.fromMap(item)).toList();
+                        List<Product> categoryProducts = categoryProductsData
+                            .map((item) => Product.fromMap(item))
+                            .toList();
 
                         Navigator.push(
                           context,

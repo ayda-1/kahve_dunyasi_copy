@@ -20,119 +20,166 @@ class _TakeAwayPageState extends State<TakeAwayPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.yellow.shade300,
+        foregroundColor: Colors.white,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10),
-            SizedBox(
-              height: 100,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  Offers(),
-                  Offers(),
-                  Offers(),
-                  Offers(),
-                  Offers(),
-                  Offers(),
-                  Offers(),
-                  Offers(),
-                  Offers(),
-                ],
-              ),
+            Text(
+              "Hoş geldin,",
+              style: TextStyle(color: Colors.pink.shade900, fontSize: 13),
             ),
-
             Row(
               children: [
-                SizedBox(width: 13),
                 Text(
-                  "Haberler ve Fırsatlar",
+                  "Ayda Nur Karaduman",
                   style: TextStyle(
-                    color: Colors.black87,
+                    color: Colors.pink.shade900,
+                    fontSize: 13,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
                   ),
+                ),
+                SizedBox(width: 5),
+                Icon(
+                  Icons.arrow_circle_right_outlined,
+                  size: 18,
+                  color: Colors.pink.shade900,
                 ),
               ],
             ),
-            PageViewFirstPage(
-              controller: _pageController,
-              onPageChanged: (index) {
-                setState(() {
-                  _currentPage = index;
-                });
-              },
+          ],
+        ),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: Image.asset("images/kahve_dunyasi_logo.png"),
+        ),
+        actions: [
+          CircleAvatar(
+            backgroundColor: Colors.pink.shade900,
+            child: Icon(
+              Icons.qr_code_rounded,
+              size: 30,
+              color: Colors.yellow.shade200,
             ),
-
-            PageDots(currentPage: _currentPage, pageCount: 3),
-            SizedBox(height: 20),
-            Row(
-              children: [
-                SizedBox(width: 13),
-                Text(
-                  "Mağaza Sparişlerine Özel",
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.all(10),
-              child: SizedBox(
-                height: 250,
-
-                child: Row(
+          ),
+        ],
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 10),
+              SizedBox(
+                height: 100,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
-                    ProductCard(
-                      imagePath: 'images/gofrik.png',
-                      title: 'Gofrik Sütlü',
-                      price: '37,00 TL',
-                    ),
-                    SizedBox(width: 12),
-                    ProductCard(
-                      imagePath: 'images/kruvasan.png',
-                      title: 'Kruvasan',
-                      price: '85,00 TL',
-                    ),
-                    SizedBox(width: 12),
-                    ProductCard(
-                      imagePath: 'images/gofrik.png',
-                      title: 'Kruvasan',
-                      price: '85,00 TL',
-                    ),
-                    SizedBox(width: 12),
-                    ProductCard(
-                      imagePath: 'images/gofrik.png',
-                      title: 'Kruvasan',
-                      price: '85,00 TL',
-                    ),
+                    Offers(),
+                    Offers(),
+                    Offers(),
+                    Offers(),
+                    Offers(),
+                    Offers(),
+                    Offers(),
+                    Offers(),
+                    Offers(),
                   ],
                 ),
               ),
-            ),
 
-            Row(
-              children: [
-                SizedBox(width: 13),
-                Text(
-                  "Kahve Dünyası Mağazalarını Keşfet",
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+              Row(
+                children: [
+                  SizedBox(width: 13),
+                  Text(
+                    "Haberler ve Fırsatlar",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+              PageViewFirstPage(
+                controller: _pageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentPage = index;
+                  });
+                },
+              ),
+
+              PageDots(currentPage: _currentPage, pageCount: 3),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  SizedBox(width: 13),
+                  Text(
+                    "Mağaza Sparişlerine Özel",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.all(10),
+                child: SizedBox(
+                  height: 250,
+
+                  child: Row(
+                    children: [
+                      ProductCard(
+                        imagePath: 'images/gofrik.png',
+                        title: 'Gofrik Sütlü',
+                        price: '37,00 TL',
+                      ),
+                      SizedBox(width: 12),
+                      ProductCard(
+                        imagePath: 'images/kruvasan.png',
+                        title: 'Kruvasan',
+                        price: '85,00 TL',
+                      ),
+                      SizedBox(width: 12),
+                      ProductCard(
+                        imagePath: 'images/gofrik.png',
+                        title: 'Kruvasan',
+                        price: '85,00 TL',
+                      ),
+                      SizedBox(width: 12),
+                      ProductCard(
+                        imagePath: 'images/gofrik.png',
+                        title: 'Kruvasan',
+                        price: '85,00 TL',
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Container(child: Image.asset("images/map.png", fit: BoxFit.fill)),
-          ],
+              ),
+
+              Row(
+                children: [
+                  SizedBox(width: 13),
+                  Text(
+                    "Kahve Dünyası Mağazalarını Keşfet",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Container(child: Image.asset("images/map.png", fit: BoxFit.fill)),
+            ],
+          ),
         ),
       ),
     );

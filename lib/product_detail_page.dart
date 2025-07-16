@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:kahve_dunyasi/product.dart';
+import 'package:kahve_dunyasi/product_option.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final Product product;
@@ -25,6 +26,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final sizeOption = widget.product.options.firstWhere(
+      (opt) => opt.name == "Boy Seçimi",
+      orElse: () =>
+          ProductOption(name: "Boy Seçimi", choices: [], isRequired: false),
+    );
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -59,7 +66,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Ürün adı
                           Text(
                             widget.product.name,
                             style: const TextStyle(
@@ -68,14 +74,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             ),
                           ),
                           const SizedBox(height: 8),
-
-                          // Açıklama
                           if (widget.product.description != null)
                             Text(
                               widget.product.description!,
                               style: TextStyle(color: Colors.grey.shade700),
                             ),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -89,10 +92,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               ),
                             ],
                           ),
-
                           const SizedBox(height: 8),
-
-                          // Alerjen bilgisi
                           if (widget.product.allergens != null &&
                               widget.product.allergens!.isNotEmpty)
                             Row(
@@ -108,143 +108,110 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                               ],
                             ),
-
                           const SizedBox(height: 12),
-
-                          // Seçenekler
-                          ...widget.product.options.map((option) {
-                            return Column(
+                          ...widget.product.options
+                              .where((o) => o.name != "Boy Seçimi")
+                              .map((option) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      option.name,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Wrap(
+                                      spacing: 10,
+                                      children: option.choices.map((choice) {
+                                        final selected =
+                                            selectedChoices[option.name] ==
+                                            choice;
+                                        return ChoiceChip(
+                                          label: Text(
+                                            "${choice.name} +${choice.extraPrice.toStringAsFixed(2)}₺",
+                                          ),
+                                          selected: selected,
+                                          onSelected: (val) {
+                                            setState(() {
+                                              selectedChoices[option.name] = val
+                                                  ? choice
+                                                  : null;
+                                            });
+                                          },
+                                        );
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 10),
+                                  ],
+                                );
+                              }),
+                          if (sizeOption.choices.isNotEmpty)
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  option.name,
-                                  style: const TextStyle(
+                                const Text(
+                                  "Boy Seçimi",
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
+                                    fontSize: 16,
                                   ),
                                 ),
-                                Wrap(
-                                  spacing: 10,
-                                  children: option.choices.map((choice) {
-                                    final selected =
-                                        selectedChoices[option.name] == choice;
-                                    return ChoiceChip(
-                                      label: Text(
-                                        "${choice.name} +${choice.extraPrice.toStringAsFixed(2)}₺",
-                                      ),
-                                      selected: selected,
-                                      onSelected: (val) {
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: sizeOption.choices.map((choice) {
+                                    final isSelected =
+                                        selectedChoices["Boy Seçimi"] == choice;
+                                    return GestureDetector(
+                                      onTap: () {
                                         setState(() {
-                                          selectedChoices[option.name] = val
-                                              ? choice
-                                              : null;
+                                          selectedChoices["Boy Seçimi"] =
+                                              choice;
                                         });
                                       },
+                                      child: Container(
+                                        width: 100,
+                                        padding: const EdgeInsets.all(12),
+                                        decoration: BoxDecoration(
+                                          color: isSelected
+                                              ? Colors.yellow.shade300
+                                              : Colors.yellow.shade100,
+                                          border: Border.all(
+                                            color: isSelected
+                                                ? Colors.pink.shade900
+                                                : Colors.grey.shade400,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Icon(
+                                              Icons.local_cafe,
+                                              size: isSelected ? 40 : 32,
+                                              color: Colors.pink.shade900,
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(choice.name),
+                                            Text(
+                                              "+${choice.extraPrice.toStringAsFixed(2)}₺",
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     );
                                   }).toList(),
                                 ),
-                                const SizedBox(height: 10),
                               ],
-                            );
-                          }),
-                          Row(children: [Text("Boy Seçimi")]),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 150,
-                                width: 120,
-
-                                decoration: BoxDecoration(
-                                  color: Colors.yellow.shade100,
-                                  border: Border.all(
-                                    color: Colors.pink.shade900,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-
-                                  children: [
-                                    Icon(
-                                      Icons.coffee_rounded,
-                                      size: 40,
-                                      color: Colors.pink.shade900,
-                                    ),
-                                    Text("Küçük"),
-                                    Text(
-                                      "${calculateTotalPrice().toStringAsFixed(2)}₺",
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 150,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                  color: Colors.yellow.shade100,
-
-                                  border: Border.all(
-                                    color: Colors.pink.shade900,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.coffee_rounded,
-                                      size: 55,
-                                      color: Colors.pink.shade900,
-                                    ),
-                                    Text("Orta"),
-                                    Text(
-                                      "${(calculateTotalPrice() + 10.0).toStringAsFixed(2)}₺",
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 150,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                  color: Colors.yellow.shade100,
-
-                                  border: Border.all(
-                                    color: Colors.pink.shade900,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.coffee_rounded,
-                                      size: 66,
-                                      color: Colors.pink.shade900,
-                                    ),
-                                    Text("Büyük"),
-
-                                    Text(
-                                      "${(calculateTotalPrice() + 20.0).toStringAsFixed(2)}₺",
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(
-                            height: 80,
-                          ), // Sabit alt kısmın üstü boşluk
+                            ),
+                          const SizedBox(height: 80),
                         ],
                       ),
                     ),
                   ),
-
-                  // ALTTA SABİT KISIM
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
@@ -319,7 +286,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ],
                               ),
                             ),
-
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.pop(context, {
@@ -335,7 +301,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                                 minimumSize: Size(200, 50),
                               ),
-
                               child: Text(
                                 "Sepete Ekle",
                                 style: TextStyle(color: Colors.pink.shade900),
