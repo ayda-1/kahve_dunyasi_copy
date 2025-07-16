@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kahve_dunyasi/entry_page.dart';
 import 'package:kahve_dunyasi/order.dart';
 import 'package:kahve_dunyasi/previous_orders.dart';
 import 'package:kahve_dunyasi/shopping_basket.dart';
@@ -22,9 +23,10 @@ class _TakeAwayBottomNavigationBarState
     Order(),
     ShoppingBasket(),
     PreviousOrders(),
-    Scaffold(body: Center(child: Text("Kampanyalar Sayfası"))),
-    Scaffold(body: Center(child: Text("Şubeler Sayfası"))),
-    Scaffold(body: Center(child: Text("Yardım Sayfası"))),
+    EntryPage(),
+    TakeAwayPage(),
+    
+    Scaffold(body: Center(child: Text("Online Mağaza"))),
   ];
 
   void _onItemTapped(int index) {
@@ -59,9 +61,9 @@ class _TakeAwayBottomNavigationBarState
 
     // Ekstra butonlar
     List<Widget> extraButtons = [
-      _buildNavIcon(Icons.local_offer, 4, "Kampanya"),
-      _buildNavIcon(Icons.store, 5, "Şubeler"),
-      _buildNavIcon(Icons.help_outline, 6, "Yardım"),
+      _buildNavIcon(Icons.home, 4, "Ana Sayfa"),
+      _buildNavIcon(Icons.local_cafe_outlined, 5, "Hazır Al"),
+      _buildNavIcon(Icons.shop, 6, "Online Mağaza"),
        Container(
         height: 60,
         width: 60,
@@ -99,9 +101,12 @@ class _TakeAwayBottomNavigationBarState
                   ),
                 ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: showExtraMenu ? extraButtons : mainButtons,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: showExtraMenu ? extraButtons : mainButtons,
+                ),
               ),
             ),
           ),
