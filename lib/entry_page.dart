@@ -59,9 +59,62 @@ class _EntryPageState extends State<EntryPage> {
             children: [
               Container(
                 height: 200,
-                color: Colors.pink.shade600,
+                color: const Color.fromARGB(255, 110, 0, 48),
                 child: Row(
-                  children: [Icon(Icons.coffee), Icon(Icons.coffee_maker)],
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20.0,
+                        horizontal: 2,
+                      ),
+                      child: Image.asset("images/bardak1.jpeg"),
+                    ),
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Biri Bizden",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "0 ",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Icon(Icons.coffee, color: Colors.white),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Çekirdeklerim",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "22,95",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Icon(Icons.eco, color: Colors.white),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 13),

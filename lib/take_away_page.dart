@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kahve_dunyasi/product_card.dart';
+import 'package:kahve_dunyasi/widgets/offers.dart';
 
 class TakeAwayPage extends StatefulWidget {
   const TakeAwayPage({super.key});
@@ -71,21 +72,106 @@ class _TakeAwayPageState extends State<TakeAwayPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                height: 200,
+                color: Colors.yellow.shade300,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20.0,
+                        horizontal: 2,
+                      ),
+                      child: Image.asset("images/bardak2.jpeg"),
+                    ),
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Biri Bizden",
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 110, 0, 48),
+                            fontSize: 18,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "0 ",
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 110, 0, 48),
+                                fontSize: 18,
+                              ),
+                            ),
+                            Icon(
+                              Icons.coffee,
+                              color: const Color.fromARGB(255, 110, 0, 48),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Çekirdeklerim",
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 110, 0, 48),
+                            fontSize: 18,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "22,95",
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 110, 0, 48),
+                                fontSize: 18,
+                              ),
+                            ),
+                            Icon(
+                              Icons.eco,
+                              color: const Color.fromARGB(255, 110, 0, 48),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 10),
               SizedBox(
                 height: 100,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    Offers(),
-                    Offers(),
-                    Offers(),
-                    Offers(),
-                    Offers(),
-                    Offers(),
-                    Offers(),
-                    Offers(),
-                    Offers(),
+                  children: const [
+                    Offers(
+                      imagePath: "images/icon1.jpeg",
+                      label: "Orijin Serisi",
+                    ),
+                    Offers(
+                      imagePath: "images/icon2.jpeg",
+                      label: "Özel Seri Kahveler",
+                    ),
+                    Offers(imagePath: "images/icon3.jpeg", label: "Cacaonly"),
+                    Offers(
+                      imagePath: "images/icon4.jpeg",
+                      label: "Bu Dünya Hepimizin",
+                    ),
+                    Offers(
+                      imagePath: "images/icon5.jpeg",
+                      label: "Bizden Söylemesi",
+                    ),
+                    Offers(imagePath: "images/icon6.jpeg", label: "Popcorn"),
+                    Offers(
+                      imagePath: "images/icon7.jpeg",
+                      label: "Kapsül Kahve",
+                    ),
                   ],
                 ),
               ),
@@ -273,33 +359,6 @@ class PageDots extends StatelessWidget {
           ),
         );
       }),
-    );
-  }
-}
-
-class Offers extends StatelessWidget {
-  const Offers({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(width: 20),
-        Column(
-          children: [
-            Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.pink.shade900, width: 2),
-                borderRadius: BorderRadius.circular(17),
-              ),
-              child: Icon(Icons.food_bank_outlined),
-            ),
-            Text("data"),
-          ],
-        ),
-      ],
     );
   }
 }
