@@ -22,17 +22,6 @@ class OrderCategories extends StatefulWidget {
 class _OrderCategoriesState extends State<OrderCategories> {
   List<Product> displayedProducts = [];
   String searchQuery = "";
-  String selectedFilter = "Tümü";
-
-  final List<String> filters = [
-    "Tümü",
-    "Filtre",
-    "Salep",
-    "Espresso",
-    "Çikolata",
-    "Türk Kahvesi",
-    "Vanilya",
-  ];
 
   @override
   void initState() {
@@ -42,22 +31,10 @@ class _OrderCategoriesState extends State<OrderCategories> {
 
   void updateSearch(String query) {
     setState(() {
-      searchQuery = query;
-      applyFilters();
-    });
-  }
-
-  void applyFilters() {
-    final query = searchQuery.toLowerCase();
-    setState(() {
-      displayedProducts = widget.products.where((product) {
-        final nameLower = product.name.toLowerCase();
-        final matchesSearch = nameLower.contains(query);
-        final matchesFilter = selectedFilter == "Tümü"
-            ? true
-            : nameLower.contains(selectedFilter.toLowerCase());
-        return matchesSearch && matchesFilter;
-      }).toList();
+      searchQuery = query.toLowerCase();
+      displayedProducts = widget.products
+          .where((product) => product.name.toLowerCase().contains(searchQuery))
+          .toList();
     });
   }
 
@@ -86,46 +63,21 @@ class _OrderCategoriesState extends State<OrderCategories> {
                   ),
                 ),
               ),
-            ),
+            ), // bu hala kayıyo sonra düzeltilecek
 
-            // ✅ Chip (kategori filtreleri)
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: filters.map((filter) {
-                  final isSelected = selectedFilter == filter;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: ChoiceChip(
-                      label: Text(filter),
-                      selected: isSelected,
-                      selectedColor: Colors.pink.shade100,
-                      onSelected: (_) {
-                        setState(() {
-                          selectedFilter = filter;
-                          applyFilters();
-                        });
-                      },
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-
-            const SizedBox(height: 10),
-
-            // ✅ Ürün listesi
             Expanded(
               child: GridView.builder(
                 itemCount: displayedProducts.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // 2 sütun
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                   childAspectRatio: 0.7,
                 ),
+
                 itemBuilder: (context, index) {
                   final product = displayedProducts[index];
+
                   return Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -157,7 +109,9 @@ class _OrderCategoriesState extends State<OrderCategories> {
                         Expanded(
                           flex: 4,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15.0,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -184,17 +138,22 @@ class _OrderCategoriesState extends State<OrderCategories> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 ProductDetailPage(
-                                              product: product,
-                                            ),
+                                                  product: product,
+                                                ),
                                           ),
                                         );
 
                                         if (result == true) {
+                                          // Eğer sadece true dönmüşse, bildirimi göster (eski kullanım)
                                           _showTopNotification(
-                                              context, product);
+                                            context,
+                                            product,
+                                          );
                                         } else if (result is Map) {
-                                          final Product prod = result['product'];
+                                          final Product prod =
+                                              result['product'];
                                           final int qty = result['quantity'];
+                                          // Sepete qty kadar ekle
                                           for (int i = 0; i < qty; i++) {
                                             ShoppingBasketManager.add(prod);
                                           }
@@ -275,6 +234,7 @@ void _showTopNotification(BuildContext context, Product product) {
   );
 
   overlay.insert(overlayEntry);
+
   Future.delayed(const Duration(seconds: 3), () {
     overlayEntry.remove();
   });

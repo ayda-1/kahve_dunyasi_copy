@@ -108,44 +108,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                               ],
                             ),
-                          const SizedBox(height: 12),
-                          ...widget.product.options
-                              .where((o) => o.name != "Boy Seçimi")
-                              .map((option) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      option.name,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Wrap(
-                                      spacing: 10,
-                                      children: option.choices.map((choice) {
-                                        final selected =
-                                            selectedChoices[option.name] ==
-                                            choice;
-                                        return ChoiceChip(
-                                          label: Text(
-                                            "${choice.name} +${choice.extraPrice.toStringAsFixed(2)}₺",
-                                          ),
-                                          selected: selected,
-                                          onSelected: (val) {
-                                            setState(() {
-                                              selectedChoices[option.name] = val
-                                                  ? choice
-                                                  : null;
-                                            });
-                                          },
-                                        );
-                                      }).toList(),
-                                    ),
-                                    const SizedBox(height: 10),
-                                  ],
-                                );
-                              }),
+
+                          SizedBox(height: 10),
+
+                          // ✅ Boy Seçimi buraya alındı
                           if (sizeOption.choices.isNotEmpty)
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,11 +139,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       },
                                       child: Container(
                                         width: 100,
+                                        height: 120,
                                         padding: const EdgeInsets.all(12),
                                         decoration: BoxDecoration(
                                           color: isSelected
-                                              ? Colors.yellow.shade300
-                                              : Colors.yellow.shade100,
+                                              ? Colors.yellow.shade100
+                                              : Colors.white,
                                           border: Border.all(
                                             color: isSelected
                                                 ? Colors.pink.shade900
@@ -188,11 +155,29 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           ),
                                         ),
                                         child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
                                             Icon(
                                               Icons.local_cafe,
-                                              size: isSelected ? 40 : 32,
-                                              color: Colors.pink.shade900,
+                                              size: () {
+                                                if (choice.name
+                                                    .toLowerCase()
+                                                    .contains("küçük"))
+                                                  return 28.0;
+                                                if (choice.name
+                                                    .toLowerCase()
+                                                    .contains("orta"))
+                                                  return 36.0;
+                                                if (choice.name
+                                                    .toLowerCase()
+                                                    .contains("büyük"))
+                                                  return 44.0;
+                                                return 32.0; // varsayılan
+                                              }(),
+                                              color: isSelected
+                                                  ? Colors.pink.shade900
+                                                  : Colors.grey,
                                             ),
                                             const SizedBox(height: 4),
                                             Text(choice.name),
@@ -205,9 +190,71 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     );
                                   }).toList(),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Divider(),
+                                ),
                               ],
                             ),
-                          const SizedBox(height: 80),
+
+                          const SizedBox(height: 12),
+
+                          // Aroma vb. diğer seçenekler aşağıya alındı
+                          ...widget.product.options
+                              .where((o) => o.name != "Boy Seçimi")
+                              .map((option) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      option.name,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Wrap(
+                                      spacing: 10,
+                                      children: option.choices.map((choice) {
+                                        final selected =
+                                            selectedChoices[option.name] ==
+                                            choice;
+                                        return InkWell(
+  onTap: () {
+    setState(() {
+      selectedChoices[option.name] = selected ? null : choice;
+    });
+  },
+ 
+  child: Container(
+    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+    decoration: BoxDecoration(
+      color: selected ? Colors.yellow.shade100 : Colors.white,
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(
+        color: selected ? Colors.pink.shade900 : Colors.grey.shade400,
+        width: 1.5,
+      ),
+    ),
+    child: Text(
+      "${choice.name} +${choice.extraPrice.toStringAsFixed(2)}₺",
+      style: TextStyle(
+        color: selected ? Colors.grey.shade700 : Colors.black87,
+        fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+      ),
+    ),
+  ),
+);
+
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 10),
+                                  ],
+                                );
+                              }),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Divider(),
+                          ),
                         ],
                       ),
                     ),
@@ -220,7 +267,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
-                        BoxShadow(color: Colors.black26, blurRadius: 6),
+                        BoxShadow(color: Colors.black26, blurRadius: 1),
                       ],
                     ),
                     child: Column(

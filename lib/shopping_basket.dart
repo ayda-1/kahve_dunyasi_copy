@@ -82,6 +82,8 @@ return Scaffold(
               final quantity = entry.value;
 
               return Card(
+                
+                shadowColor: Colors.grey.shade100,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -92,9 +94,11 @@ return Scaffold(
                     height: 50,
                     fit: BoxFit.cover,
                   ),
-                  title: Text(product.name),
+                  title: Text(product.name,style: TextStyle(fontSize: 13),textAlign: TextAlign.start,),
                   subtitle: Text(
+                    
                     "${(product.basePrice * quantity).toStringAsFixed(2)} TL",
+                    
                     style: TextStyle(
                       color: Colors.pink.shade900,
                       fontWeight: FontWeight.bold,
@@ -181,7 +185,7 @@ return Scaffold(
   bottomNavigationBar: Container(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
     decoration: BoxDecoration(
-      color: Colors.yellow.shade200,
+      color: Colors.white,
       boxShadow: [
         BoxShadow(color: Colors.black26, blurRadius: 8, offset: Offset(0, -2)),
       ],
@@ -194,9 +198,11 @@ return Scaffold(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                "Toplam Tutar:",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                "Ödenecek Tutar ",
+                style: TextStyle(fontSize: 16,),
               ),
+              Icon(Icons.arrow_circle_up_rounded,color: Colors.grey.shade600,),
+              Spacer(),
               Text(
                 "${ShoppingBasketManager.totalPrice().toStringAsFixed(2)} TL",
                 style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -214,13 +220,13 @@ return Scaffold(
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.pink.shade900,
+                backgroundColor: Colors.yellow.shade300,
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text(
+              child:  Text(
                 "Sepeti Onayla",
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16,color: Colors.pink.shade900),
               ),
             ),
           ),

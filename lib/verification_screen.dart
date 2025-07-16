@@ -43,18 +43,30 @@ class _VerificationScreenState extends State<VerificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Kod Doğrulama"),
+        title: Text("Güvenlik Onayı"),
+        centerTitle: true,
         backgroundColor: Colors.pink.shade900,
         foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 24),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "+90 ${widget.phoneNumber} numarasına gelen 6 haneli kodu giriniz.",
-              style: TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
+            
+            Text("Onay Kodu",style: TextStyle(color: Colors.grey.shade800,fontSize:18,fontWeight: FontWeight.bold),),
+            SizedBox(height: 10,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              
+              children: [
+                Text(
+                  "+90 ${widget.phoneNumber} numaralı telefonunuza gelen\n 6 haneli kodu giriniz. ",
+                  style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: Colors.grey.shade700),
+                  textAlign: TextAlign.center,
+                ),
+
+              ],
             ),
             SizedBox(height: 32),
             Row(
@@ -66,10 +78,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   height: 50,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.pink.shade900),
+                    border: Border.all(color: Colors.pink.shade900,width: 3),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(code[index], style: TextStyle(fontSize: 24)),
+                  child: Text(code[index], style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: Colors.grey.shade800)),
                 ),
               ),
             ),
