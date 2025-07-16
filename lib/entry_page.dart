@@ -348,7 +348,7 @@ class PageViewFirstPage extends StatelessWidget {
       height: 250,
       child: PageView(
         controller: controller,
-        onPageChanged: onPageChanged, // 🔥 EKLENDİ!
+        onPageChanged: onPageChanged, 
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),

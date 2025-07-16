@@ -18,7 +18,6 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
   Widget build(BuildContext context) {
     final items = ShoppingBasketManager.items;
 
-    // Kodunun sonunda, Scaffold içindeki body'nin sonuna kadar olan kısmı aynı kalacak
 
 return Scaffold(
   appBar: AppBar(
@@ -237,7 +236,7 @@ return Scaffold(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Promosyon kodu uygula işlemi
+                          // promosyon kodu 
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey[300],
@@ -262,7 +261,6 @@ return Scaffold(
           ],
         ),
   
-  // Burada altta sabit duran toplam tutar ve buton:
   bottomNavigationBar: Container(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
     decoration: BoxDecoration(
@@ -295,7 +293,7 @@ return Scaffold(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // Sepeti onayla aksiyonu (ödeme, sipariş vb.)
+                
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text("Siparişiniz alındı!")),
                 );

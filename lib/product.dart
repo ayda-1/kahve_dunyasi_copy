@@ -4,8 +4,8 @@ class Product {
   final String name;
   final String imageUrl;
   final double basePrice;
-  final String? description; // ✔ açıklama eklendi
-  final List<String>? allergens; // ✔ alerjenler eklendi
+  final String? description; 
+  final List<String>? allergens; 
   final List<ProductOption> options;
 
   Product({

@@ -32,13 +32,13 @@ class _TakeAwayBottomNavigationBarState
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      showExtraMenu = false; // ekstra menüdeyken sayfa değişince kapansın
+      showExtraMenu = false; 
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Normal butonlar
+  
     List<Widget> mainButtons = [
       _buildNavIcon(Icons.local_cafe_outlined, 0, "Hazır Al",),
       _buildNavIcon(Icons.local_cafe, 1, "Spariş Ver"),
@@ -59,7 +59,6 @@ class _TakeAwayBottomNavigationBarState
       ),
     ];
 
-    // Ekstra butonlar
     List<Widget> extraButtons = [
       _buildNavIcon(Icons.home, 4, "Ana Sayfa"),
       _buildNavIcon(Icons.local_cafe_outlined, 5, "Hazır Al"),

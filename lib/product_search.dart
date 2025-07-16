@@ -63,7 +63,7 @@ class _OrderCategoriesState extends State<OrderCategories> {
                   ),
                 ),
               ),
-            ), // bu hala kayıyo sonra düzeltilecek
+            ), 
 
             Expanded(
               child: GridView.builder(
@@ -144,7 +144,7 @@ class _OrderCategoriesState extends State<OrderCategories> {
                                         );
 
                                         if (result == true) {
-                                          // Eğer sadece true dönmüşse, bildirimi göster (eski kullanım)
+                                         
                                           _showTopNotification(
                                             context,
                                             product,

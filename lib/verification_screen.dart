@@ -81,7 +81,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     border: Border.all(color: Colors.pink.shade900,width: 3),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(code[index], style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: Colors.grey.shade800)),
+                  child: Text(code[index], 
+                  style: TextStyle(
+                    fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade800)),
                 ),
               ),
             ),

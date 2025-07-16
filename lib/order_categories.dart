@@ -88,7 +88,7 @@ class _OrderCategoriesState extends State<OrderCategories> {
               ),
             ),
 
-            // ✅ Chip (kategori filtreleri)
+           
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
