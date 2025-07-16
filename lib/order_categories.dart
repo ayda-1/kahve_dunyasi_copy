@@ -5,7 +5,7 @@ import 'package:kahve_dunyasi/shopping_basket.dart';
 import 'package:kahve_dunyasi/shopping_basket_manager.dart';
 import 'package:kahve_dunyasi/widgets/chosen_shop.dart';
 
-class OrderCategories extends StatelessWidget {
+class OrderCategories extends StatefulWidget {
   final String categoryTitle;
   final List<Product> products;
 
@@ -16,10 +16,33 @@ class OrderCategories extends StatelessWidget {
   });
 
   @override
+  State<OrderCategories> createState() => _OrderCategoriesState();
+}
+
+class _OrderCategoriesState extends State<OrderCategories> {
+  List<Product> displayedProducts = [];
+  String searchQuery = "";
+
+  @override
+  void initState() {
+    super.initState();
+    displayedProducts = widget.products;
+  }
+
+  void updateSearch(String query) {
+    setState(() {
+      searchQuery = query.toLowerCase();
+      displayedProducts = widget.products
+          .where((product) => product.name.toLowerCase().contains(searchQuery))
+          .toList();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(categoryTitle),
+        title: Text(widget.categoryTitle),
         backgroundColor: Colors.yellow.shade300,
         foregroundColor: Colors.pink.shade900,
       ),
@@ -27,19 +50,34 @@ class OrderCategories extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            ChosenShop(),// bu hala kayıyo sonra düzeltilecek 
+            ChosenShop(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: TextField(
+                onChanged: updateSearch,
+                decoration: InputDecoration(
+                  hintText: "Ürün ara...",
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ), // bu hala kayıyo sonra düzeltilecek
+
             Expanded(
               child: GridView.builder(
-                itemCount: products.length,
+                itemCount: displayedProducts.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, // 2 sütun
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                   childAspectRatio: 0.7,
                 ),
+
                 itemBuilder: (context, index) {
-                  final product = products[index];
-                          
+                  final product = displayedProducts[index];
+
                   return Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -71,13 +109,17 @@ class OrderCategories extends StatelessWidget {
                         Expanded(
                           flex: 4,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15.0,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   product.name,
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 const Spacer(),
                                 Row(
@@ -95,15 +137,21 @@ class OrderCategories extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                ProductDetailPage(product: product),
+                                                ProductDetailPage(
+                                                  product: product,
+                                                ),
                                           ),
                                         );
-                          
+
                                         if (result == true) {
                                           // Eğer sadece true dönmüşse, bildirimi göster (eski kullanım)
-                                          _showTopNotification(context, product);
+                                          _showTopNotification(
+                                            context,
+                                            product,
+                                          );
                                         } else if (result is Map) {
-                                          final Product prod = result['product'];
+                                          final Product prod =
+                                              result['product'];
                                           final int qty = result['quantity'];
                                           // Sepete qty kadar ekle
                                           for (int i = 0; i < qty; i++) {
@@ -162,7 +210,9 @@ void _showTopNotification(BuildContext context, Product product) {
                 onPressed: () async {
                   final result = await Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ShoppingBasket()),
+                    MaterialPageRoute(
+                      builder: (context) => const ShoppingBasket(),
+                    ),
                   );
 
                   if (result == true) {

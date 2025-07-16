@@ -95,21 +95,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           // Alerjen bilgisi
                           if (widget.product.allergens != null &&
                               widget.product.allergens!.isNotEmpty)
-                              Row(
-                                children: [
-                                  Icon(Icons.eco_rounded,color: Colors.green,),
-                                  Text("Alerjenler: "),
-                                  Text(
-                              " ${widget.product.allergens!.join(", ")}",
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.red.shade700,
-                              ),
+                            Row(
+                              children: [
+                                Icon(Icons.eco_rounded, color: Colors.green),
+                                Text("Alerjenler: "),
+                                Text(
+                                  " ${widget.product.allergens!.join(", ")}",
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.red.shade700,
+                                  ),
+                                ),
+                              ],
                             ),
-
-                                ],
-                              ),
-                            
 
                           const SizedBox(height: 12),
 
@@ -148,6 +146,95 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               ],
                             );
                           }),
+                          Row(children: [Text("Boy Seçimi")]),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 150,
+                                width: 120,
+
+                                decoration: BoxDecoration(
+                                  color: Colors.yellow.shade100,
+                                  border: Border.all(
+                                    color: Colors.pink.shade900,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+
+                                  children: [
+                                    Icon(
+                                      Icons.coffee_rounded,
+                                      size: 40,
+                                      color: Colors.pink.shade900,
+                                    ),
+                                    Text("Küçük"),
+                                    Text(
+                                      "${calculateTotalPrice().toStringAsFixed(2)}₺",
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 150,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  color: Colors.yellow.shade100,
+
+                                  border: Border.all(
+                                    color: Colors.pink.shade900,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.coffee_rounded,
+                                      size: 55,
+                                      color: Colors.pink.shade900,
+                                    ),
+                                    Text("Orta"),
+                                    Text(
+                                      "${(calculateTotalPrice() + 10.0).toStringAsFixed(2)}₺",
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 150,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  color: Colors.yellow.shade100,
+
+                                  border: Border.all(
+                                    color: Colors.pink.shade900,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.coffee_rounded,
+                                      size: 66,
+                                      color: Colors.pink.shade900,
+                                    ),
+                                    Text("Büyük"),
+
+                                    Text(
+                                      "${(calculateTotalPrice() + 20.0).toStringAsFixed(2)}₺",
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
 
                           const SizedBox(
                             height: 80,
@@ -246,7 +333,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                 minimumSize: Size(200, 50),
+                                minimumSize: Size(200, 50),
                               ),
 
                               child: Text(
