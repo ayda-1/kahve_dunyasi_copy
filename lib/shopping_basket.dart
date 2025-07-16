@@ -12,6 +12,8 @@ class ShoppingBasket extends StatefulWidget {
 }
 
 class _ShoppingBasketState extends State<ShoppingBasket> {
+  bool isChecked = false;
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final items = ShoppingBasketManager.items;
@@ -178,6 +180,85 @@ return Scaffold(
                 ],
               ),
             ),
+            SizedBox(height: 13,),
+             Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey.shade400,
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.white,
+              ),
+              child: RadioListTile<bool>(
+                value: true,
+                groupValue: isChecked,
+                onChanged: (val) {
+                  setState(() {
+                    isChecked = val!;
+                  });
+                },
+                title: const Text(
+                  'Promosyon Kodu Ekle',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                activeColor: Colors.pink.shade900,
+                controlAffinity: ListTileControlAffinity.leading,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+              ),
+            ),
+            if (isChecked)
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.grey.shade300),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Promosyon kodu giriniz',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Promosyon kodu uygula işlemi
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[300],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text(
+                          'Uygula',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      
+
+      
           ],
         ),
   
